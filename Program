@@ -3,3 +3,182 @@ struct Database {
    char nama[50];
    char score[50];
 } data[50], curr;
+
+int main ()
+{
+    int pin,pilihan,pil2, npin1,npin2, nominal2;
+    char konfirmasi[5];
+    int salah = 0;
+    int pin1 = 123;
+    int pin2 = 234;
+ printf("===================================\n");
+
+ printf("\tSelamat datang di ATM \n");
+
+ printf("===================================\n");
+
+ printf("Masukkan Pin Anda : ");
+ scanf("%d",&pin);
+ printf("===================================\n");
+
+
+ if(pin==pin1 || pin == pin2){
+
+        awal:
+
+        printf("1. Cek Saldo\n");
+
+        printf("2. Deposit\n");
+
+        printf("3. Withdraw\n");
+
+        printf("4. Transfer\n");
+
+        printf("5. Lihat Riwayat Transaksi\n");
+
+        printf("6. Ganti PIN\n");
+
+        printf("7. EXIT\n");
+
+        printf("Masukkan Pilihan anda (1-7) : ");
+
+        scanf("%d",&pilihan);
+
+        switch(pilihan){
+
+            case 1:
+                system("cls");
+
+                printf("Cek Saldo \n");
+                break;
+
+            case 2:
+                system("cls");
+                break;
+
+            case 3 :
+                system("cls");
+                printf("=============Withdraw============\n");
+                printf("#Rp.100.000");
+                printf("\t\t#Rp.200.000\n");
+                printf("#Rp.500.000");
+                printf("\t\t#Rp.1000.000\n");
+                printf("#Nominal lainnya");
+
+                break;
+
+            case 4 :
+                system("cls");
+                printf ("masukkan pin: ");
+                scanf("%d",&pin);
+                if (pin==pin1){
+                    printf("hay");
+                }else{
+                    printf("PIN salah");
+                }
+                break;
+
+            case 5 :
+                system("cls");
+
+                break;
+
+            case 6 :
+                system("cls");
+                printf("==========GANTI PIN ==========\n");
+                pinlama:
+                printf("Masukan PIN lama:"); scanf("%d", &pin);
+                if(pin==pin1){
+                goto pinbaru1;
+                }
+                else if (pin==pin2){
+                goto pinbaru2;
+                }
+                else {
+                printf("PIN ANDA SALAH!\n");
+                salah++;
+                 if(salah==3){
+                    printf("===akses ditolak===");
+                    goto konfirmasi;
+                 }else {
+                 goto pinlama;
+                 }
+                }
+
+                pinbaru1:
+                printf("Masukan PIN baru:"); scanf("%d", &npin1);
+                printf("apakah anda yakin ingin mengganti pin? \n\t1.Iya\n\t2.Tidak\nmasukkan pilihan :");
+                scanf("%d", &pil2);
+                if (pil2==1){
+                pin1=npin1;
+                printf("\n===PIN berhasil diubah===");
+                printf("\nPIN saat ini %d", npin1);
+                }else if (pil2==2){
+                printf("===Penggantian pin dibatalkan==");
+                }
+                else {
+                printf("inputan salah");
+                }
+                goto konfirmasi;
+                pinbaru2:
+                printf("Masukan PIN baru:"); scanf("%d", &npin2);
+                printf("apakah anda yakin ingin mengganti pin? \n\t1.Iya\n\t2.Tidak\nmasukkan pilihan :");
+                scanf("%d", &pil2);
+                if (pil2==1){
+                pin2=npin2;
+                printf("\n===PIN berhasil diubah===");
+                printf("\nPIN saat ini %d", npin2);
+                }else if (pil2==2){
+                printf("===Penggantian pin dibatalkan==");
+                }
+                else {
+                printf("inputan salah");
+                }
+                goto konfirmasi;
+                break;
+
+            case 7 :
+
+                goto akhir;
+
+                break;
+
+                default : printf("Pilihan anda salah");
+
+        }
+
+         konfirmasi:
+
+         printf("\nApakah anda ingin bertransaksi kembali ? Y/T : ");
+
+         scanf("%s",&konfirmasi);
+
+         if(strcmp(konfirmasi, "Y") == 0 || strcmp(konfirmasi, "y") == 0){
+
+                goto awal;
+
+         }else if(strcmp(konfirmasi, "T") == 0 || strcmp(konfirmasi, "t") == 0){
+
+                goto akhir;
+                akhir:
+                system("cls");
+                printf("================================");
+                printf("\nTerimakasih sudah bertransaksi");
+                printf("\n================================\n");
+
+         }else{
+
+            printf("\nPilihan salah");
+
+            goto konfirmasi;
+
+         }
+
+    }else{
+
+        printf("\nPIN yang anda masukkan salah");
+
+    }
+   return 0;
+
+}
