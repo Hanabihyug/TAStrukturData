@@ -3,10 +3,11 @@
 #include <stdlib.h>
 #define size 2
 
+int hash[size];
+
 struct Database {
    char nama[50];
    char score[50];
-   int hash[size];
 } data[50], curr;
 
 void init()
@@ -23,7 +24,7 @@ void insert(int value)
     if(hash[key] == -1)
     {   
         hash[key] = value;
-        printf("%d inserted at hash[%d]\n", value,key);
+        printf("\n");
     }
     else
     {   
@@ -39,8 +40,24 @@ void print()
         printf("hash[%d] = %d\n",i,hash[i]);
 }
 
+void search(int value)
+{
+    int key = value % size;
+    if(hash[key] == value)
+        printf("Nomor terverifikasi\n");
+    else
+        printf("Nomor anda tidak terdata\n");
+}
+
 int main ()
 {
+    int a;
+    init();
+    insert(5412);
+    insert(4265);
+    printf("Masukan nomor kartu anda : ");
+    scanf("%d",&a);
+    search(a);
     int pin,pilihan,pil2, npin1,npin2, nominal2;
     char konfirmasi[5];
     int salah = 0;
