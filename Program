@@ -55,9 +55,6 @@ int main ()
     init();
     insert(5412);
     insert(4265);
-    printf("Masukan nomor kartu anda : ");
-    scanf("%d",&a);
-    search(a);
     int pin,pilihan,pil2, npin1,npin2, nominal2;
     char konfirmasi[5];
     int salah = 0;
@@ -68,6 +65,9 @@ int main ()
  printf("\tSelamat datang di ATM \n");
 
  printf("===================================\n");
+ printf("Masukan nomor kartu anda : ");
+    scanf("%d",&a);
+    search(a);
 
  printf("Masukkan Pin Anda : ");
  scanf("%d",&pin);
