@@ -1,11 +1,43 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#define size 2
 
 struct Database {
    char nama[50];
    char score[50];
+   int hash[size];
 } data[50], curr;
+
+void init()
+{   
+    int i;
+    for(i = 0; i < size; i++)
+        hash[i] = -1;
+}
+
+void insert(int value)
+{   
+    int key = value % size;
+    
+    if(hash[key] == -1)
+    {   
+        hash[key] = value;
+        printf("%d inserted at hash[%d]\n", value,key);
+    }
+    else
+    {   
+        printf("Collision : hash[%d] has element %d already!\n",key,hash[key]);
+        printf("Unable to insert %d\n",value);
+    }
+}
+
+void print()
+{
+    int i;
+    for(i = 0; i < size; i++)
+        printf("hash[%d] = %d\n",i,hash[i]);
+}
 
 int main ()
 {
