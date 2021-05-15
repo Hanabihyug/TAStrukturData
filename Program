@@ -4,12 +4,14 @@
 #define size 2
 
 int hash[size];
-int b,c,pin;
-int d =0;
 int pin1 = 123456;
 int pin2 = 654321;
 
 struct Database {
+    int b;
+    int c;
+    int pin[size];
+    int d;
    char nama[50];
    char score[50];
 } data[50], curr;
@@ -59,13 +61,13 @@ void search(int value)
 int inspin()
 {
     printf("Masukkan Pin Anda : ");
- scanf("%d",&pin);
+ scanf("%d",&data->pin);
  printf("======= ============================\n");
- if(pin == pin1){
-     c = 1;
+ if(data->pin == pin1){
+     data->c = 1;
  }
- else if(pin == pin2){
-     d = 1;
+ else if(data->pin == pin2){
+     data->d = 1;
  }
 }
 
@@ -87,11 +89,11 @@ int main ()
     scanf("%d",&a);
     search(a);
 inspin();
-if(hash[0] == 5412 && c==1){
+if(hash[0] == 5412 && data->c==1){
      printf("Pin benar\n");
      
  }
- else if(hash[1] == 4265 && d == 1){
+ else if(hash[1] == 4265 && data->d == 1){
      printf("Pin benar\n");
      
  }
@@ -148,8 +150,8 @@ if(size == 2)
             case 4 :
                 system("cls");
                 printf ("masukkan pin: ");
-                scanf("%d",&pin);
-                if (pin==pin1){
+                scanf("%d",&data->pin);
+                if (data->pin==pin1){
                     printf("hay");
                 }else{
                     printf("PIN salah");
@@ -165,11 +167,11 @@ if(size == 2)
                 system("cls");
                 printf("==========GANTI PIN ==========\n");
                 pinlama:
-                printf("Masukan PIN lama:"); scanf("%d", &pin);
-                if(pin==pin1){
+                printf("Masukan PIN lama:"); scanf("%d", &data->pin);
+                if(data->pin==pin1){
                 goto pinbaru1;
                 }
-                else if (pin==pin2){
+                else if (data->pin==pin2){
                 goto pinbaru2;
                 }
                 else {
