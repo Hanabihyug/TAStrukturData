@@ -4,6 +4,10 @@
 #define size 2
 
 int hash[size];
+int b,c,pin;
+int d =0;
+int pin1 = 123456;
+int pin2 = 654321;
 
 struct Database {
    char nama[50];
@@ -43,10 +47,26 @@ void print()
 void search(int value)
 {
     int key = value % size;
-    if(hash[key] == value)
+    if(hash[key] == value) {
         printf("Nomor terverifikasi\n");
-    else
+    }
+    else {
         printf("Nomor anda tidak terdata\n");
+        return main();
+    }
+}
+
+int inspin()
+{
+    printf("Masukkan Pin Anda : ");
+ scanf("%d",&pin);
+ printf("======= ============================\n");
+ if(pin == pin1){
+     c = 1;
+ }
+ else if(pin == pin2){
+     d = 1;
+ }
 }
 
 int main ()
@@ -55,11 +75,9 @@ int main ()
     init();
     insert(5412);
     insert(4265);
-    int pin,pilihan,pil2, npin1,npin2, nominal2;
+    int pilihan,pil2, npin1,npin2, nominal2;
     char konfirmasi[5];
     int salah = 0;
-    int pin1 = 123;
-    int pin2 = 234;
  printf("===================================\n");
 
  printf("\tSelamat datang di ATM \n");
@@ -68,14 +86,22 @@ int main ()
  printf("Masukan nomor kartu anda : ");
     scanf("%d",&a);
     search(a);
+inspin();
+if(hash[0] == 5412 && c==1){
+     printf("Pin benar\n");
+     
+ }
+ else if(hash[1] == 4265 && d == 1){
+     printf("Pin benar\n");
+     
+ }
+ else{
+     printf("Pin salah\n");
+     return main();
+ }
 
- printf("Masukkan Pin Anda : ");
- scanf("%d",&pin);
- printf("===================================\n");
-
-
- if(pin==pin1 || pin == pin2){
-
+if(size == 2)
+{
         awal:
 
         printf("1. Cek Saldo\n");
