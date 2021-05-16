@@ -4,56 +4,49 @@
 #define size 2
 
 int hash[size];
-int i;
-int pin1 = 123456;
-int pin2 = 654321;  
+int i,hasil=-1;
+int key,z;
 struct Database {
     int b;
     int c;
-    char pin1[size];
+    int pin1;
     int pin;
     int d;
-   char nomer[size];
-   char score[50];
+   long long nomer;
+   char score[size];
 } data[50], curr;
 
 
 
 void init()
-{   
+{
     int i;
     for(i = 0; i < size; i++)
         hash[i] = -1;
 }
 
 void insert(int value)
-{   
+{
     int key = value % size;
-    
+
     if(hash[key] == -1)
-    {   
+    {
         hash[key] = value;
         printf("\n");
     }
     else
-    {   
+    {
         printf("Collision : hash[%d] has element %d already!\n",key,hash[key]);
         printf("Unable to insert %d\n",value);
     }
 }
 
-void print()
-{
-    int i;
-    for(i = 0; i < size; i++)
-        printf("hash[%d] = %d\n",i,hash[i]);
-}
-
 void search(int value)
 {
-    int key = value % size;
+     key = value % size;
     if(hash[key] == value) {
         printf("Nomor terverifikasi\n");
+        key = z;
     }
     else {
         printf("Nomor anda tidak terdata\n");
@@ -65,23 +58,26 @@ int inspin()
 {
     printf("Masukkan Pin Anda : ");
  scanf("%d",&data->pin);
- printf("======= ============================\n");
- if(data->pin == pin1){
-     data->c = 1;
+ printf("====================================\n");
+ 
+ if(hash[z]==data[z].nomer && data->pin==data[z].pin1){
+     printf("PIN benar\n");
  }
- else if(data->pin == pin2){
-     data->d = 1;
- }
+ else {
+     printf("PIN salah\n");
+     return inspin();
 }
-
+}
 int main ()
 {
+    int pin1,pin2;
     FILE *fp;
     fp = fopen("pin.txt","r");
     while(!feof(fp)){
-        fscanf(fp,"%s %s",data[i].nomer,data[i].pin1);
+        fscanf(fp,"%lld %d",&data[i].nomer,&data[i].pin1);
         i++;
     }
+    fclose(fp);
     int a;
     init();
     insert(5412);
@@ -98,18 +94,7 @@ int main ()
     scanf("%d",&a);
     search(a);
 inspin();
-if(hash[0] == 5412 && data->c==1){
-     printf("Pin benar\n");
-     
- }
- else if(hash[1] == 4265 && data->d == 1){
-     printf("Pin benar\n");
-     
- }
- else{
-     printf("Pin salah\n");
-     return main();
- }
+  
 
 if(size == 2)
 {
