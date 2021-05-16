@@ -46,7 +46,7 @@ void search(int value)
      key = value % size;
     if(hash[key] == value) {
         printf("Nomor terverifikasi\n");
-        key = z;
+        z = key;
     }
     else {
         printf("Nomor anda tidak terdata\n");
@@ -70,7 +70,7 @@ int inspin()
 }
 int main ()
 {
-    int pin1,pin2;
+    int pin1,pin2,a;
     FILE *fp;
     fp = fopen("pin.txt","r");
     while(!feof(fp)){
@@ -78,7 +78,6 @@ int main ()
         i++;
     }
     fclose(fp);
-    int a;
     init();
     insert(5412);
     insert(4265);
