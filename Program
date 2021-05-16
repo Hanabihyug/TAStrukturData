@@ -4,17 +4,20 @@
 #define size 2
 
 int hash[size];
+int i;
 int pin1 = 123456;
-int pin2 = 654321;
-
+int pin2 = 654321;  
 struct Database {
     int b;
     int c;
-    int pin[size];
+    char pin1[size];
+    int pin;
     int d;
-   char nama[50];
+   char nomer[size];
    char score[50];
 } data[50], curr;
+
+
 
 void init()
 {   
@@ -73,6 +76,12 @@ int inspin()
 
 int main ()
 {
+    FILE *fp;
+    fp = fopen("pin.txt","r");
+    while(!feof(fp)){
+        fscanf(fp,"%s %s",data[i].nomer,data[i].pin1);
+        i++;
+    }
     int a;
     init();
     insert(5412);
