@@ -12,10 +12,16 @@ struct Database {
     int pin1;
     int pin;
     int d;
+    int saldo;
    long long nomer;
    char score[size];
-} data[50], curr;
+} data[50], curr;  
 
+void ceksaldo()
+{
+    puts("Jumlah saldo anda : ");
+    printf("Rp. %d\n",data[z].saldo);
+}
 
 
 void init()
@@ -74,7 +80,7 @@ int main ()
     FILE *fp;
     fp = fopen("pin.txt","r");
     while(!feof(fp)){
-        fscanf(fp,"%lld %d",&data[i].nomer,&data[i].pin1);
+        fscanf(fp,"%lld %d %d",&data[i].nomer,&data[i].pin1,&data[i].saldo);
         i++;
     }
     fclose(fp);
@@ -121,8 +127,7 @@ if(size == 2)
 
             case 1:
                 system("cls");
-
-                printf("Cek Saldo \n");
+                ceksaldo();
                 break;
 
             case 2:
