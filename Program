@@ -5,7 +5,7 @@
 
 int hash[size];
 int i,hasil=-1;
-int key,z,e,f,depo;
+int key,z,e,f,g,h,depo;
 struct Database {
     int b;
     int c;
@@ -16,6 +16,41 @@ struct Database {
    long long nomer;
    char score[size];
 } data[50], curr;  
+
+void withdraw()
+{
+                puts("=============Withdraw============");
+                puts("1. Rp. 100.000");
+                puts("2. Rp. 200.000");
+                puts("3. Rp.500.000");
+                puts("4. Rp.1.000.000");
+                puts("5.Nominal lainnya");
+                printf("Masukan pilihan anda : ");
+                scanf("%d",&g);
+                switch(g) {
+                    case 1:
+                    data->saldo = data->saldo - 100000;
+                    break;
+                    case 2:
+                    data->saldo = data->saldo - 200000;
+                    break;
+                    case 3:
+                    data->saldo = data->saldo - 500000;
+                    break;
+                    case 4:
+                    data->saldo = data->saldo - 1000000;
+                    break;
+                    case 5:
+                    printf("Masukan nominal : ");
+                    scanf("%d",h);
+                    data->saldo = data->saldo - h;
+                    default:
+                    puts("Pilihan salah");
+                    return withdraw();
+                }
+                puts("Jumlah saldo anda saat ini : ");
+                printf("Rp. %d",data->saldo);
+}
 
 void deposit()
 {
@@ -50,12 +85,10 @@ void deposit()
     default :
         puts("Pilihan salah");
         return deposit();
-        break;
     }
     data->saldo = data->saldo+depo;
     puts("Jumla saldo anda saat ini : ");
-    printf("%d",data->saldo);
-    
+    printf("Rp. %d",data->saldo);
 }
 
 void ceksaldo()
@@ -118,7 +151,7 @@ int inspin()
 int main ()
 {
     int pin1,pin2,a;
-    FILE *fp;
+    FILE *fp,*fd;
     fp = fopen("pin.txt","r");
     while(!feof(fp)){
         fscanf(fp,"%lld %d %d",&data[i].nomer,&data[i].pin1,&data[i].saldo);
@@ -176,13 +209,7 @@ if(size == 2)
 
             case 3 :
                 system("cls");
-                printf("=============Withdraw============\n");
-                printf("#Rp.100.000");
-                printf("\t\t#Rp.200.000\n");
-                printf("#Rp.500.000");
-                printf("\t\t#Rp.1000.000\n");
-                printf("#Nominal lainnya");
-
+                withdraw();
                 break;
 
             case 4 :
