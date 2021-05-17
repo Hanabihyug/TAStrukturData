@@ -178,6 +178,7 @@ void deposit()
     case 4:
     system("cls");
     depo = 100000*f;
+    break;
     default :
         puts("Pilihan salah");
         return deposit();
