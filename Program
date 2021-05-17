@@ -6,7 +6,7 @@
 int hash[size];
 int i,hasil=-1;
 int simp;
-int key,z,e,f,g,h,x,depo,pilihan;
+int key,z,e,f,g,h,p,x,depo,pilihan;
 struct Database {
     int b;
     int c;
@@ -308,7 +308,15 @@ int inspin()
  }
  else {
      printf("PIN salah\n");
+     p++;
+     if(p>3){
+         puts("Akun anda telah terblokir");
+         exit(0);
+     }
+     else{
+         printf("Attemp %d : \n",p);
      return inspin();
+}
 }
 }
 
