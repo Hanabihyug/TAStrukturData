@@ -6,7 +6,7 @@
 int hash[size];
 int i,hasil=-1;
 int simp;
-int key,z,e,f,g,h,x,depo;
+int key,z,e,f,g,h,x,depo,pilihan;
 struct Database {
     int b;
     int c;
@@ -66,12 +66,13 @@ void ngirim()
 void transfer()
 {
     int y,l;
-    puts("Transfer : ");
+    puts("========Transfer======== : ");
     puts("1. Rp.100.000");
     puts("2. Rp.200.000");
     puts("3. Rp.500.000");
     puts("4. Rp.1.000.000");
     puts("5.Nominal lainnya");
+    puts("6.kembali");
     printf("Masukan pilihan anda : ");
     scanf("%d",&y);
     switch(y) {
@@ -117,6 +118,9 @@ void transfer()
         data[z].saldo = data[z].saldo-l; 
         simp = l;
         break;
+        case 6:
+        return awal();
+        break;
         default : 
         puts("Pilihan salah");
         return transfer();
@@ -136,6 +140,7 @@ void withdraw()
                 puts("3. Rp.500.000");
                 puts("4. Rp.1.000.000");
                 puts("5.Nominal lainnya");
+                puts("6.kembali");
                 printf("Masukan pilihan anda : ");
                 scanf("%d",&g);
                 switch(g) {
@@ -176,6 +181,9 @@ void withdraw()
                     }
                     data[z].saldo = data[z].saldo - h;
                     break;
+                    case 6:
+                    return awal();
+                    break;
                     default:
                     puts("Pilihan salah");
                     return withdraw();
@@ -188,13 +196,18 @@ void withdraw()
 
 void deposit()
 {
+    puts("========Deposit========");
     puts("Pilih jumlah pecahan uang : ");
     puts("1.Rp. 20.000");
     puts("2. Rp. 50.000");
     puts("3. Rp. 75.000");
     puts("4. Rp. 100.000");
-    printf("Masukan pilihan anda (1-4): ");
+    puts("5.kembali");
+    printf("Masukan pilihan anda : ");
     scanf("%d",&e);
+    if(e==5){
+        return awal();
+    }
     printf("Masukan jumlah lembar : ");
     scanf("%d",&f);
     switch(e) {
@@ -298,36 +311,13 @@ int inspin()
      return inspin();
 }
 }
-int main ()
+
+void awal()
 {
-    int pin1,pin2,a;
-    FILE *fp,*fd;
-    fp = fopen("pin.txt","r");
-    while(!feof(fp)){
-        fscanf(fp,"%lld %d %d",&data[i].nomer,&data[i].pin1,&data[i].saldo);
-        i++;
-    }
-    fclose(fp);
-    init();
-    for(i=0;i<size;i++){
-     insert(data[i].nomer);   
-    }
-    int pilihan,pil2, npin1,npin2, nominal2;
     char konfirmasi[5];
-    int salah = 0;
- printf("===================================\n");
- printf("\tSelamat datang di ATM \n");
- printf("===================================\n");
- printf("Masukan nomor kartu anda : ");
-    scanf("%d",&a);
-    search(a);
-inspin();
-  
-
-if(size == 2)
-{
         awal:
-
+        inspin();
+        puts("========MENU========");
         printf("1. Cek Saldo\n");
 
         printf("2. Deposit\n");
@@ -381,9 +371,8 @@ if(size == 2)
             case 7 :
 
                 goto akhir;
-
+                return 0;
                 break;
-
                 default : printf("Pilihan anda salah");
 
         }
@@ -411,12 +400,31 @@ if(size == 2)
             printf("\nPilihan salah");
             goto konfirmasi;
          }
-
-    }else{
-
-        printf("\nPIN yang anda masukkan salah");
-
     }
+
+int main ()
+{
+    int pin1,pin2,a;
+    FILE *fp,*fd;
+    fp = fopen("pin.txt","r");
+    while(!feof(fp)){
+        fscanf(fp,"%lld %d %d",&data[i].nomer,&data[i].pin1,&data[i].saldo);
+        i++;
+    }
+    fclose(fp);
+    init();
+    for(i=0;i<size;i++){
+     insert(data[i].nomer);   
+    }
+    int pil2, npin1,npin2, nominal2;
+    int salah = 0;
+ printf("===================================\n");
+ printf("\tSelamat datang di ATM \n");
+ printf("===================================\n");
+ printf("Masukan nomor kartu anda : ");
+    scanf("%d",&a);
+    search(a);
+    awal();
     FILE *fw;
     fw = fopen("pin1.txt","w");
     for(i=0;i<size;i++){
