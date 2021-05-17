@@ -29,15 +29,31 @@ void withdraw()
                 scanf("%d",&g);
                 switch(g) {
                     case 1:
+                    if(data->saldo<100000){
+                        printf("Saldo anda tidak mencukupi");
+                        return withdraw();
+                    }
                     data->saldo = data->saldo - 100000;
                     break;
                     case 2:
+                    if(data->saldo<200000){
+                        printf("Saldo anda tidak mencukupi");
+                        return withdraw();
+                    }
                     data->saldo = data->saldo - 200000;
                     break;
                     case 3:
+                    if(data->saldo<500000){
+                        printf("Saldo anda tidak mencukupi");
+                        return withdraw();
+                    }
                     data->saldo = data->saldo - 500000;
                     break;
                     case 4:
+                    if(data->saldo<1000000){
+                        puts("Saldo anda tidak mencukupi");
+                        return withdraw();
+                    }
                     data->saldo = data->saldo - 1000000;
                     break;
                     case 5:
@@ -47,7 +63,7 @@ void withdraw()
                     default:
                     puts("Pilihan salah");
                     return withdraw();
-                }
+                }  
                 puts("Jumlah saldo anda saat ini : ");
                 printf("Rp. %d",data->saldo);
 }
@@ -312,11 +328,8 @@ if(size == 2)
                 printf("\n================================\n");
 
          }else{
-
             printf("\nPilihan salah");
-
             goto konfirmasi;
-
          }
 
     }else{
