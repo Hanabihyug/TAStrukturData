@@ -5,7 +5,8 @@
 
 int hash[size];
 int i,hasil=-1;
-int key,z,e,f,g,h,depo;
+int simp;
+int key,z,e,f,g,h,x,depo;
 struct Database {
     int b;
     int c;
@@ -64,7 +65,7 @@ void ngirim()
 
 void transfer()
 {
-    int y;
+    int y,l;
     puts("Transfer : ");
     puts("1. Rp.100.000");
     puts("2. Rp.200.000");
@@ -75,24 +76,56 @@ void transfer()
     scanf("%d",&y);
     switch(y) {
         case 1:
+        if(data[z].saldo<100000){
+            puts("Saldo anda tidak mencukupi");
+            return transfer();
+        }
         data[z].saldo = data[z].saldo-100000;
+        simp = 100000;
         break;
         case 2:
+        if(data[z].saldo<200000){
+            puts("Saldo anda tidak mencukupi");
+            return transfer();
+        }
         data[z].saldo = data[z].saldo-200000;
+        simp = 200000;
         break;
         case 3:
+        if(data[z].saldo<500000){
+            puts("Saldo anda tidak mencukupi");
+            return transfer();
+        }
         data[z].saldo = data[z].saldo-500000;
+        simp = 500000;
         break;
         case 4:
+        if(data[z].saldo<1000000){
+            puts("Saldo anda tidak mencukupi");
+            return transfer();
+        }
         data[z].saldo = data[z].saldo-1000000;
+        simp = 1000000;
+        break;
+        case 5:
+        printf("Masukkan Nominal Uang : ");
+        scanf("%d",&l);
+        if(data[z].saldo<l){
+            puts("Saldo anda tidak mencukupi");
+            return transfer();
+        }
+        data[z].saldo = data[z].saldo-l; 
+        simp = l;
         break;
         default : 
         puts("Pilihan salah");
         return transfer();
     }
     ngirim();
+    data[x].saldo = data[x].saldo + simp;
     inspin();
     puts("Transfer berhasil");  
+    
 }
 
 void withdraw()
@@ -136,8 +169,13 @@ void withdraw()
                     break;
                     case 5:
                     printf("Masukan nominal : ");
-                    scanf("%d",h);
+                    scanf("%d",&h);
+                    if(data[z].saldo<h){
+                        puts("Saldo anda tidak mencukupi");
+                        return withdraw();
+                    }
                     data[z].saldo = data[z].saldo - h;
+                    break;
                     default:
                     puts("Pilihan salah");
                     return withdraw();
@@ -225,6 +263,7 @@ void search1(int value)
      key = value % size;
     if(hash[key] == value) {
         printf("Nomor terverifikasi\n");
+        x = key;
     }
     else {
         printf("Nomor anda tidak terdata\n");
