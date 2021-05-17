@@ -17,6 +17,15 @@ struct Database {
    char score[size];
 } data[50], curr;  
 
+void transfer()
+{
+    int a;
+    inspin();
+    printf("Masukan Nomor bank tujuan anda : ");
+    scanf("%d",&a);
+    search(a);
+}
+
 void withdraw()
 {
                 puts("=============Withdraw============");
@@ -66,6 +75,11 @@ void withdraw()
                 }  
                 puts("Jumlah saldo anda saat ini : ");
                 printf("Rp. %d",data->saldo);
+                FILE *fw;
+                fw = fopen("pin.txt","r+");
+                fseek(fw,12,SEEK_SET);
+                fprintf(fw,"%d",data->saldo);
+                fclose(fw);
 }
 
 void deposit()
@@ -105,6 +119,11 @@ void deposit()
     data->saldo = data->saldo+depo;
     puts("Jumla saldo anda saat ini : ");
     printf("Rp. %d",data->saldo);
+    FILE *fd;
+    fd = fopen("pin.txt","r+");
+    fseek(fd,12,SEEK_SET);
+    fprintf(fd,"%d",data->saldo);
+    fclose(fd);
 }
 
 void ceksaldo()
