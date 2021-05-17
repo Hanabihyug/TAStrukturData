@@ -61,11 +61,6 @@ void transfer()
     ngirim();
     inspin();
     puts("Transfer berhasil");  
-    FILE *ft;
-    ft = fopen("pin.txt","r+");
-    fseek(ft,12,SEEK_SET);
-    fprintf(ft,"%d",data[z].saldo);
-    fclose(ft);
 }
 
 void withdraw()
@@ -119,11 +114,6 @@ void withdraw()
                 puts("Transaksi berhasil");
                 puts("Jumlah saldo anda saat ini : ");
                 printf("Rp. %d",data[z].saldo);
-                FILE *fw;
-                fw = fopen("pin.txt","r+");
-                fseek(fw,12,SEEK_SET);
-                fprintf(fw,"%d",data[z].saldo);
-                fclose(fw);
 }
 
 void deposit()
@@ -165,11 +155,6 @@ void deposit()
     puts("Transaksi berhasil");
     puts("Jumla saldo anda saat ini : ");
     printf("Rp. %d",data[z].saldo);
-    FILE *fd;
-    fd = fopen("pin.txt","r+");
-    fseek(fd,12,SEEK_SET);
-    fprintf(fd,"%d",data[z].saldo);
-    fclose(fd);
 }
 
 void ceksaldo()
@@ -409,6 +394,14 @@ if(size == 2)
         printf("\nPIN yang anda masukkan salah");
 
     }
+    FILE *fw;
+    fw = fopen("pin1.txt","w");
+    for(i=0;i<size;i++){
+        fprintf(fw,"%lld %d %d\n",data[i].nomer,data[i].pin1,data[i].saldo);
+    }
+    fclose(fw);
+    remove("pin.txt");
+    rename("pin1.txt","pin.txt");
    return 0;
 
 }
