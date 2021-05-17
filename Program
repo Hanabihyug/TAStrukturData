@@ -22,10 +22,18 @@ void gantipin()
     return 0;
 }
 
+void ngirim()
+{
+    int a;
+    printf("Masukan Nomor bank tujuan anda : ");
+    scanf("%d",&a);
+    search1(a);
+}
+
 void transfer()
 {
-    int a,y;
-    puts("Trasnfer : ");
+    int y;
+    puts("Transfer : ");
     puts("1. Rp.100.000");
     puts("2. Rp.200.000");
     puts("3. Rp.500.000");
@@ -50,11 +58,14 @@ void transfer()
         puts("Pilihan salah");
         return transfer();
     }
-    printf("Masukan Nomor bank tujuan anda : ");
-    scanf("%d",&a);
-    search1(a);
+    ngirim();
     inspin();
     puts("Transfer berhasil");  
+    FILE *ft;
+    ft = fopen("pin.txt","r+");
+    fseek(ft,12,SEEK_SET);
+    fprintf(ft,"%d",data[z].saldo);
+    fclose(ft);
 }
 
 void withdraw()
@@ -104,6 +115,8 @@ void withdraw()
                     puts("Pilihan salah");
                     return withdraw();
                 }  
+                inspin();
+                puts("Transaksi berhasil");
                 puts("Jumlah saldo anda saat ini : ");
                 printf("Rp. %d",data[z].saldo);
                 FILE *fw;
@@ -148,6 +161,8 @@ void deposit()
         return deposit();
     }
     data[z].saldo = data[z].saldo+depo;
+    inspin();
+    puts("Transaksi berhasil");
     puts("Jumla saldo anda saat ini : ");
     printf("Rp. %d",data[z].saldo);
     FILE *fd;
@@ -195,7 +210,7 @@ void search1(int value)
     }
     else {
         printf("Nomor anda tidak terdata\n");
-        return main();
+        return ngirim();
     }
 }
 
