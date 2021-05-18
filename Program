@@ -24,15 +24,7 @@ void gantipin()
 {
     int a;
     puts("========== GANTI PIN ==========");
-    printf("Masukan PIN lama anda : ");
-    scanf("%d",&a);
-    if(a==data[z].pin1){
-        puts("PIN benar");
-    }
-    else {
-        puts("PIN salah");
-        return gantipin();
-    }
+    inspin();
     pinbaru();
     
     
@@ -53,6 +45,14 @@ void pinbaru()
         return gantipin();
     }
     puts("PIN telah terganti");
+    FILE *fg;
+    fg = fopen("pin1.txt","w");
+    for(i=0;i<size;i++){
+        fprintf(fg,"%lld %d %d\n",data[i].nomer,data[i].pin1,data[i].saldo);
+    }
+    fclose(fg);
+    remove("pin.txt");
+    rename("pin1.txt","pin.txt");
 }
 
 void ngirim()
