@@ -310,7 +310,7 @@ int inspin()
      printf("PIN salah\n");
      p++;
      if(p>3){
-         puts("Akun anda telah terblokir");
+         puts("PIN salah lebih dari 3x transaksi gagal");
          exit(0);
      }
      else{
