@@ -1,12 +1,69 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <limits.h>
 #define size 2
 
 int hash[size];
 int i,hasil=-1;
-int simp;
-int key,z,e,f,g,h,p,x,depo,pilihan;
+int simp,num;
+int key,z,e,f,g,h,p=0,u,x,c1,depo,pilihan;
+int t=0,t1=0;
+int A[50];
+int temp,temp2;
+int g1,g2;
+
+struct StackNode {
+	int data;
+	struct StackNode* next;
+};
+
+struct StackNode* newNode(int data)
+{
+	struct StackNode* stackNode =
+	(struct StackNode*)
+	malloc(sizeof(struct StackNode));
+	stackNode->data = data;
+	stackNode->next = NULL;
+	return stackNode;
+}
+
+int isEmpty(struct StackNode* root)
+{
+	return !root;
+}
+
+void push(struct StackNode** root, int data)
+{
+	struct StackNode* stackNode = newNode(data);
+	stackNode->next = *root;
+	*root = stackNode;
+}
+
+int pop(struct StackNode** root)
+{
+	if (isEmpty(*root))
+		return INT_MIN;
+	struct StackNode* temp = *root;
+	*root = (*root)->next;
+	int popped = temp->data;
+	free(temp);
+
+	return popped;
+}
+
+int peek(struct StackNode* root)
+{
+	if (isEmpty(root))
+		return INT_MIN;
+	return root->data;
+}
+
+struct fake{
+    int fake1;
+    int fake2;
+}hehe[50];
+
 struct Database {
     int b;
     int c;
@@ -17,17 +74,49 @@ struct Database {
     int d;
     int saldo;
    long long nomer;
-   char score[size];
-} data[50], curr;  
+   int riwayat1;
+   int riwayat;
+   char c23;
+   char code[50];
+} data[50];
+
+struct data{
+ int x;
+ struct data* next;
+}*head=NULL,*tail=NULL, *curr, xx;
+
+int pushbelakang(int x){
+ curr = (struct data*)malloc(sizeof(struct data));
+ curr->x = x;
+ if(head == NULL){
+ head = tail = curr;
+ }else {
+ tail-> next = curr;
+ tail = curr;
+ }
+ tail->next = NULL;
+}
+
+void printll(){
+ curr=head;
+ while(curr!=NULL){
+ printf("%d\n",curr->x);
+ curr=curr->next;
+ }
+ printf("\n");
+ if(head==NULL){
+ printf("\n kosong\n");
+ }
+ return main();
+}
 
 void gantipin()
 {
     int a;
     puts("========== GANTI PIN ==========");
+    p=0;
     inspin();
     pinbaru();
-    
-    
 }
 
 void pinbaru()
@@ -57,10 +146,12 @@ void pinbaru()
 
 void ngirim()
 {
-    int a;
+    int a=0;
     printf("Masukan Nomor bank tujuan anda : ");
     scanf("%d",&a);
+    fflush(stdin);
     search1(a);
+    fflush(stdin);
 }
 
 void transfer()
@@ -126,14 +217,19 @@ void transfer()
         return transfer();
     }
     ngirim();
-    data[x].saldo = data[x].saldo + simp;
+    data[u].saldo = data[u].saldo + simp;
+    p=0;
     inspin();
-    puts("Transfer berhasil");  
-    
+    puts("Transfer berhasil");
+    data[t].riwayat=simp;
+    data[t].riwayat1=3;
+    t++;
+    t1++;
 }
 
 void withdraw()
 {
+                int w;
                 puts("=============Withdraw============");
                 puts("1. Rp.100.000");
                 puts("2. Rp.200.000");
@@ -150,6 +246,7 @@ void withdraw()
                         return withdraw();
                     }
                     data[z].saldo = data[z].saldo - 100000;
+                    w = 100000;
                     break;
                     case 2:
                     if(data[z].saldo<200000){
@@ -157,6 +254,7 @@ void withdraw()
                         return withdraw();
                     }
                     data[z].saldo = data[z].saldo - 200000;
+                    w = 200000;
                     break;
                     case 3:
                     if(data[z].saldo<500000){
@@ -164,6 +262,7 @@ void withdraw()
                         return withdraw();
                     }
                     data[z].saldo = data[z].saldo - 500000;
+                    w = 500000;
                     break;
                     case 4:
                     if(data[z].saldo<1000000){
@@ -171,6 +270,7 @@ void withdraw()
                         return withdraw();
                     }
                     data[z].saldo = data[z].saldo - 1000000;
+                    w = 1000000;
                     break;
                     case 5:
                     printf("Masukan nominal : ");
@@ -180,6 +280,7 @@ void withdraw()
                         return withdraw();
                     }
                     data[z].saldo = data[z].saldo - h;
+                    w = h;
                     break;
                     case 6:
                     return awal();
@@ -188,10 +289,15 @@ void withdraw()
                     puts("Pilihan salah");
                     return withdraw();
                 }  
+                p=0;
                 inspin();
                 puts("Transaksi berhasil");
                 puts("Jumlah saldo anda saat ini : ");
                 printf("Rp. %d",data[z].saldo);
+                data[t].riwayat=w;
+                data[t].riwayat1=2;
+                t++;
+                t1++;
 }
 
 void deposit()
@@ -211,17 +317,14 @@ void deposit()
     printf("Masukan jumlah lembar : ");
     scanf("%d",&f);
     switch(e) {
-    
     case 1:
         system("cls");
         depo = 20000*f;
         break;
-    
     case 2:
         system("cls");
         depo = 50000*f;
         break;
-        
     case 3:
         system("cls");
         depo = 75000*f;
@@ -235,18 +338,23 @@ void deposit()
         return deposit();
     }
     data[z].saldo = data[z].saldo+depo;
+    p=0;
     inspin();
     puts("Transaksi berhasil");
     puts("Jumla saldo anda saat ini : ");
     printf("Rp. %d",data[z].saldo);
+    data[t].riwayat=depo;
+    data[t].riwayat1=1;
+    t++;
+    t1++;
 }
+
 
 void ceksaldo()
 {
     puts("Jumlah saldo anda : ");
     printf("Rp. %d\n",data[z].saldo);
 }
-
 
 void init()
 {
@@ -255,28 +363,29 @@ void init()
         hash[i] = -1;
 }
 
-void insert(int value)
+void insert(int value1)
 {
-    int key = value % size;
-
+    int key = value1 % size;
     if(hash[key] == -1)
     {
-        hash[key] = value;
+        hash[key] = value1;
         printf("\n");
     }
     else
     {
         printf("Collision : hash[%d] has element %d already!\n",key,hash[key]);
-        printf("Unable to insert %d\n",value);
+        printf("Unable to insert %d\n",value1);
     }
 }
 
-void search1(int value)
+void search1(int value1)
 {
-     key = value % size;
-    if(hash[key] == value) {
+    fflush(stdin);
+    key = 0;
+     key = value1 % size;
+    if(hash[key] == value1) {
         printf("Nomor terverifikasi\n");
-        x = key;
+        u = key;
     }
     else {
         printf("Nomor anda tidak terdata\n");
@@ -284,10 +393,10 @@ void search1(int value)
     }
 }
 
-void search(int value)
+void search(int value1)
 {
-     key = value % size;
-    if(hash[key] == value) {
+     key = value1 % size;
+    if(hash[key] == value1) {
         printf("Nomor terverifikasi\n");
         z = key;
     }
@@ -297,13 +406,13 @@ void search(int value)
     }
 }
 
-int inspin()
+void inspin()
 {
+    fflush(stdin);
     printf("Masukkan Pin Anda : ");
  scanf("%d",&data->pin);
  printf("====================================\n");
- 
- if(hash[z]==data[z].nomer && data->pin==data[z].pin1){
+ if(data->pin==data[z].pin1){
      printf("PIN benar\n");
  }
  else {
@@ -320,8 +429,105 @@ int inspin()
 }
 }
 
+void gtw()
+{
+    for(t=0;t<t1;t++){
+        if(data[t].riwayat1==1){
+            printf("Deposit %d\n",data[t].riwayat);
+        }
+        else if(data[t].riwayat1==2){
+            printf("Withdraw %d\n",data[t].riwayat);
+        }else if(data[t].riwayat1==3){
+            printf("Transfer %d\n",data[t].riwayat);
+        }
+    }
+}
+
+void pppop()
+{
+    struct StackNode* root = NULL;
+    for(t=0;t<t1;t++){
+        push(&root,data[t].riwayat);
+    }
+    for(t=t1;t>t1-4;t--){
+        if(data[t].riwayat1==1){
+            printf("Deposit %d\n",pop(&root));
+        }else if(data[t].riwayat1==2){
+            printf("Withdraw %d\n",pop(&root));
+        }else if(data[t].riwayat1==3){
+            printf("Transfer %d\n",pop(&root));
+        }
+    }
+}
+
+void sssort()
+{
+    for(i=0;i<t1;i++){
+        hehe[i].fake1 = data[i].riwayat1 ;
+        hehe[i].fake2 = data[i].riwayat;
+    }
+    int j;
+    for (i = 1; i <t1; i++)
+        for (j = 0; j <t1 - i; j++)
+        {
+            if (hehe[j].fake1 > hehe[j + 1].fake1) {
+                temp = hehe[j].fake1;
+                hehe[j].fake1 = hehe[j+1].fake1;
+                hehe[j+1].fake1=temp;
+                    
+                temp2 = hehe[j].fake2;
+                hehe[j].fake2 = hehe[j+1].fake2;
+                hehe[j+1].fake2 = temp2;
+         }
+        }
+        for(t=0;t<t1;t++){
+        if(hehe[t].fake1==1){
+            printf("Deposit %d\n",hehe[t].fake2);
+        }
+        else if(hehe[t].fake1==2){
+            printf("Withdraw %d\n",hehe[t].fake2);
+        }else if(hehe[t].fake1==3){
+            printf("Transfer %d\n",hehe[t].fake2);
+        }
+    }
+    puts("Ketik riwayat yang ingin anda cari : ");
+    puts("Deposit = 1,withdraw = 2,transfer = 3");
+    puts("contoh input : 2 100000");
+    printf("Masukan inputan : ");
+    scanf("%d %d",&g1,&g2);
+    for(i=0;i<t1;i++){
+        if(g1==data[i].riwayat1 && g2==data[i].riwayat){
+            printf("Transaksi dilakukan pada Transaksi ke %d",i+1);
+        }
+    }
+}
+
+void history()
+{
+    int a;
+    puts("Lihat Riwayat Transaksi : ");
+                puts("1. Lihat riwayat terakir");
+                puts("2. Lihat seluruh riwayat");
+                puts("3. cari riwayat");
+                printf("Masukkan Pilihan : ");
+                scanf("%d",&a);
+                if(a==1){
+                    pppop();
+                }else if(a==2){
+                    gtw();
+                }else if(a==3){
+                    sssort();
+                }else{
+                    puts("Pilihan salah");
+                    return history();
+                }
+                
+}
+
 void awal()
 {
+    struct StackNode* root = NULL;
+    p=0;
     char konfirmasi[5];
         awal:
         inspin();
@@ -368,7 +574,11 @@ void awal()
 
             case 5 :
                 system("cls");
-
+                for(t=0;t<t1;t++){
+                    pushbelakang(data[t].riwayat);
+                    
+                }
+                history();
                 break;
 
             case 6 :
@@ -412,7 +622,8 @@ void awal()
 
 int main ()
 {
-    int pin1,pin2,a;
+	int num;
+    int a;
     FILE *fp,*fd;
     fp = fopen("pin.txt","r");
     while(!feof(fp)){
@@ -424,7 +635,6 @@ int main ()
     for(i=0;i<size;i++){
      insert(data[i].nomer);   
     }
-    int pil2, npin1,npin2, nominal2;
     int salah = 0;
  printf("===================================\n");
  printf("\tSelamat datang di ATM \n");
